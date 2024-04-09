@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Todo List</title>
+    <!-- Include Bootstrap CSS for button styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div style="display: flex">
+<h1>Todo List</h1>
+    <div style="display: flex; flex-direction: column; justify-content: space-around">
+        <a th:href="@{/todos/create}" class="btn btn-primary btn-sm" style="margin-left: 12px"> + Add Todo</a>
+    </div>
+</div>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Starred</th>
+        <th>Done</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="todoItem : ${todoList}">
+        <!--        th:onclick="'location.href=\'/todos/' + ${todoItem.id} + '\';'"-->
+        <td th:text="${todoItem.id}"></td>
+        <td th:text="${todoItem.title}"></td>
+        <td th:text="${todoItem.description}"></td>
+        <td>
+            <form th:action="@{/todos/{id}/toggle-starred(id=${todoItem.id})}" th:object="${todoItem}" method="post">
+                <button type="submit" class="btn btn-sm"
+                        th:text="${todoItem.starred ? 'Starred' : 'Not Starred'}"
+                        th:class="${todoItem.starred ? 'btn btn-warning' : 'btn btn-outline-warning'}"></button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/todos/{id}/toggle-done(id=${todoItem.id})}" th:object="${todoItem}" method="post">
+                <button type="submit" class="btn btn-sm"
+                        th:text="${todoItem.done ? 'Done' : 'Pending'}"
+                        th:class="${todoItem.done ? 'btn btn-success' : 'btn btn-outline-primary'}"></button>
+            </form>
+        </td>
+        <td>
+            <div style="display: flex">
+                <a th:href="@{/todos/edit/{id}(id=${todoItem.id})}" class="btn btn-primary btn-sm" style="margin-right: 4px">Edit</a>
+                <form th:action="@{/todos/delete/{id}(id=${todoItem.id})}" th:object="${todoItem}" method="post" onsubmit="return confirm('Are you sure you want to delete this todo?');">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
