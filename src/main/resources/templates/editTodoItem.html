@@ -1,33 +1,51 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Todo Item Details</title>
+    <title>Edit Todo Details</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Todo Item Details</h1>
-<div>
-    <form th:object="${todoItem}" th:action="@{/todos/edit/{id}(id=${todoItem.id})}" method="post">
-        <div class="form-group">
-            <label for="title">Title:</label>
-            <input type="text" class="form-control" id="title" name="title" th:value="${todoItem.title}" required>
-        </div>
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea class="form-control" id="description" name="description" rows="3" th:text="${todoItem.description}"></textarea>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="starred" name="starred" th:checked="${todoItem.starred}">
-            <label class="form-check-label" for="starred">Starred</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="done" name="done" th:checked="${todoItem.done}">
-            <label class="form-check-label" for="done">Done</label>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
+<div style="
+        width: 100vw;
+        height: 100vh;
+        background-color:aliceblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+">
+    <h1>Edit Todo Details</h1>
+    <div>
+        <form th:object="${todoItem}" th:action="@{/todos/edit/{id}(id=${todoItem.id})}" method="post"
+              style="
+                width: 800px;
+                border: 1px solid gray;
+                border-radius: 8px;
+                padding: 16px;"
+        >
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" th:value="${todoItem.title}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description" rows="3" th:text="${todoItem.description}"></textarea>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="starred" name="starred" th:checked="${todoItem.starred}">
+                <label class="form-check-label" for="starred">Starred</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="done" name="done" th:checked="${todoItem.done}">
+                <label class="form-check-label" for="done">Done</label>
+            </div>
+            <div style="display: flex; justify-content: space-evenly;">
+                <a th:href="@{/todos}" class="btn btn-secondary">Back to Todos</a>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
 </div>
-<a th:href="@{/todos}" class="btn btn-secondary mt-3">Back to Todos</a>
 </body>
 </html>

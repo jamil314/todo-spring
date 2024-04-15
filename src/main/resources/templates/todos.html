@@ -2,18 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Todo List</title>
-    <!-- Include Bootstrap CSS for button styling -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
 
-<div style="display: flex">
+<div style="display: flex; padding-left: 36px;">
+    <span>&#9733;</span>
 <h1>Todo List</h1>
     <div style="display: flex; flex-direction: column; justify-content: space-around">
-        <a th:href="@{/todos/create}" class="btn btn-primary btn-sm" style="margin-left: 12px"> + Add Todo</a>
+        <a th:href="@{/todos/create}" class="btn btn-primary btn-sm" style="margin-left: 40px"> + Add Todo</a>
     </div>
 </div>
-<table class="table table-striped">
+<table class="table table-striped" style="padding-left: 20px">
     <thead>
     <tr>
         <th>ID</th>
@@ -21,7 +21,7 @@
         <th>Description</th>
         <th>Starred</th>
         <th>Done</th>
-        <th>Action</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -33,7 +33,8 @@
         <td>
             <form th:action="@{/todos/{id}/toggle-starred(id=${todoItem.id})}" th:object="${todoItem}" method="post">
                 <button type="submit" class="btn btn-sm"
-                        th:text="${todoItem.starred ? 'Starred' : 'Not Starred'}"
+                        style="padding: 0 6px; font-size: 1.5rem;"
+                        th:text="${todoItem.starred ? '&#9733' : '&#9734'}"
                         th:class="${todoItem.starred ? 'btn btn-warning' : 'btn btn-outline-warning'}"></button>
             </form>
         </td>

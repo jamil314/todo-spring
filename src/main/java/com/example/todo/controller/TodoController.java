@@ -18,7 +18,6 @@ public class TodoController {
 
     @GetMapping
     public String findAll(Model model) {
-        System.out.println("Catching GET");
         List<TodoItem> todoList = todoRepo.findAll();
         model.addAttribute("todoList", todoList);
         return "todos";
@@ -31,7 +30,6 @@ public class TodoController {
 
     @GetMapping("/edit/{id}")
     public String findById(@PathVariable("id") long id, Model model) {
-        System.out.println("editing " + id);
         TodoItem todoItem = todoRepo.findById(id).orElse(null);
         if (todoItem != null) {
             model.addAttribute("todoItem", todoItem);
@@ -43,7 +41,6 @@ public class TodoController {
 
     @PostMapping
     public String create( @ModelAttribute TodoItem todoItem, Model model) {
-        System.out.println("Adding: " + todoItem.toString());
         todoRepo.save(todoItem);
         model.addAttribute("todoItem", todoItem);
         return "redirect:/todos";    }
@@ -68,7 +65,6 @@ public class TodoController {
             todoItem.setStarred(!todoItem.isStarred());
             todoRepo.save(todoItem);
         }
-        System.out.println("after toggling star:\n" + todoItem.toString());
         return "redirect:/todos";
     }
 
@@ -84,7 +80,6 @@ public class TodoController {
 
     @PostMapping("/edit/{id}")
     public String edit(@PathVariable("id") long id, @ModelAttribute TodoItem todoItem) {
-        System.out.println("New value: " + todoItem.toString());
         TodoItem oldItem = todoRepo.findById(id).orElse(null);
         if (oldItem != null) {
             oldItem.setTitle(todoItem.getTitle());
