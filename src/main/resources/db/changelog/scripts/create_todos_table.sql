@@ -1,0 +1,7 @@
+CREATE TABLE IF not EXISTS todo_item (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    starred BOOLEAN NOT NULL,
+    done BOOLEAN NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description VARCHAR(255)
+);
